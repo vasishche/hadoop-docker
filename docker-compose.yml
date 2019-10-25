@@ -1,0 +1,29 @@
+version: "3"
+services:
+  headnode:
+    image: vashche/hadoop-vm1
+    container_name: vm1-headnode
+    ports:
+      - 9870:9870
+      - 8088:8088
+    networks:
+      - hadoop-net
+    volumes:
+      - hlog:/usr/local/hadoop/current/logs
+      - hvol1:/opt/mount1
+      - hvol2:/opt/mount2
+  workernode:
+    image: vashche/hadoop-vm2
+    container_name: vm2-worker
+    networks:
+      - hadoop-net
+    volumes:
+      - hlog:/usr/local/hadoop/current/logs
+      - hvol1:/opt/mount1
+      - hvol2:/opt/mount2
+networks:
+  hadoop-net:
+volumes:
+  hlog:
+  hvol1:
+  hvol2:
